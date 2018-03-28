@@ -105,6 +105,7 @@
 </view>
 
 <view class="my-bottom">
-    <view class="btn bad" bindtap="removeFromFav" wx:if="{{hasFav}}">取消收藏</view>
-    <view  class="btn good" bindtap="saveToFav" wx:if="{{!hasFav}}">加入收藏</view>
+    <!-- <view class="btn bad" bindtap="removeFromFav" wx:if="{{hasFav}}">取消收藏</view> -->
+    <!-- <view  class="btn good" bindtap="saveToFav" wx:if="{{!hasFav}}" >加入收藏</view> -->
+    <button  class="btn good" open-type="share" bindtap="saveToFav">点我分享</button>
 </view>

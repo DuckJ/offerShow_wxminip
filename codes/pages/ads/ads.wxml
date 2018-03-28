@@ -1,0 +1,2 @@
+<!--pages/ads/ads.wxml-->
+<web-view src="{{url}}"></web-view>

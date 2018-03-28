@@ -9,8 +9,8 @@ Page({
   onShareAppMessage: function () {
     return {
       title: 'OfferShow-' + this.data.detail.company +'-'+ this.data.detail.position,
-      //path: ['pages/detail/detail?id=',this.data.id,'&getdata=request'].join(''),
-      path: 'pages/offer/offer',
+      path: ['pages/detail/detail?id=',this.data.id,'&getdata=request'].join(''),
+      // path: 'pages/offer/offer',
       success: function(res) {
         wx.showToast({
           'title':'分享成功',
@@ -82,9 +82,9 @@ Page({
     // 页面关闭
   },
   tapBack:function(){
-    if (app.globalData.scene === 1036) {
+    if (/detail/.test(app.globalData.fromPath)) {
       wx.switchTab({
-        url: 'pages/offer/offer'
+        url: '/pages/offer/offer'
       });
     }
     else{

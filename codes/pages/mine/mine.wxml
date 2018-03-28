@@ -1,6 +1,6 @@
 <view class="weui-flex my-top my-top-fixed my-top-style">
   <view class="weui-flex__item">
-    <view class="">我的收藏</view>
+    <view class="">我的分享</view>
   </view>
 </view>
 <view class="my-noscroll">

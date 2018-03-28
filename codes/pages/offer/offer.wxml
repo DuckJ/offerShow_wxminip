@@ -17,6 +17,15 @@
         </view>
 </view>
 <view class="my-noscroll" hidden="{{inputShowed}}">
+  <swiper indicator-dots="true" autoplay="true" hidden="{{!isNewest}}" interval="3000">
+    <block wx:for="{{ads}}" wx:key="{{index}}">
+      <swiper-item>
+        <navigator url="../ads/ads?url={{item.res_jumpurl}}" style="width:100%; height:100%;">
+          <image src="{{item.res_imgurl}}" class="slide-image" mode="aspectFill" style="width:100%; height:100%;"/>
+        </navigator>
+      </swiper-item>
+    </block>
+  </swiper>
   <navigator class="weui-panel weui-panel_access" wx:for="{{list}}" wx:key="{{*this}}" url="../detail/detail?id={{item.id}}">
     <view class="weui-panel__hd">
       <span class="my-text-left">{{item.company}}</span>

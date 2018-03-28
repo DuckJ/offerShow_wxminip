@@ -4,13 +4,14 @@ App({
   onShow: function(options) {
     //调用API从本地缓存中获取数据
     //这里需要修改
-    console.log("2");
     console.log(options);
+    this.globalData.scene = options.scene;
+    this.globalData.fromPath = options.path;
   },
   onLaunch:function(options){
     //这里需要修改
-    console.log("1");
-    console.log(options);
+    //console.log(options);
+    //this.globalData.scene = options.scene;
   },
   getUserInfo: function(cb) {
     var that = this
@@ -127,6 +128,7 @@ App({
     domain: 'https://www.ioffershow.com',
     userInfo: null,
     scene: 1001,
+    fromPath: '',
     needReq: true
   }
 });

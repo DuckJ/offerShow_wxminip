@@ -21,7 +21,7 @@
                 官网：www.ioffershow.com
                 </view>
                 <view class="weui-article__p">
-                OfferShow版本号：2.0.0
+                OfferShow版本号：2.1.0
                 </view>                
                 <view class="weui-article__p">
                 主页君联系邮箱：abc_123@zju.edu.cn
@@ -33,7 +33,8 @@
                 OfferShow小程序源码github地址：https://github.com/wanghsinche/offerShow_wxminip
                 </view>
                 <view class="weui-article__p">
-                郑重声明：OfferShow小程序仅提供爆料，检索以及本地收藏功能，不会记录获取和记录任何微信用户的微信号个人信息。请大家放心使用。 如果需要更丰富的功能请登录官网访问。主页提供安卓跟IOS客户端下载。                </view>
+                郑重声明：OfferShow小程序仅提供爆料，检索以及本地收藏功能，不会记录获取和记录任何微信用户的微信号个人信息。 
+               </view>
             </view>
         </view>
         <view class="weui-article__section">

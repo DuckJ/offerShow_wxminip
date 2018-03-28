@@ -1,7 +1,9 @@
 var app = getApp();
 Page({
     data: {
+        ads: [],
         list: [],
+        isNewest: true,
         kind: 'jobtotal',
         inputShowed: false,
         hasData: true,
@@ -11,7 +13,6 @@ Page({
         keyword: '',            
     },
     cache : [],
-    isNewest: true,//是最新列表而非搜索页
     onShareAppMessage: function () {
       return {
         title: 'OfferShow-最可信的校招薪水交流平台',
@@ -29,23 +30,45 @@ Page({
       };
     },    
     onLoad: function(options) {
-    // 页面初始化 options为页面跳转所带来的参数     
-        // this.getInfo([app.globalData.domain, 'webapi', this.data.kind, ''].join('/'), {}, true);
-        // this.isNewest = true;//是最新列表而非搜索页
-        // this.setData({
-        //   'history':wx.getStorageSync('history') || []
-        // });
+    
     },
     onShow: function(){
     // 页面初始化 options为页面跳转所带来的参数 
-        if (app.globalData.needReq) {
+        if (app.globalData.needReq || this.cache.length < 1) {
           app.globalData.needReq = false;
           this.getInfo([app.globalData.domain, 'webapi', this.data.kind, ''].join('/'), {}, true);
-          this.isNewest = true;//是最新列表而非搜索页
+          this.getAds();
+          //是最新列表而非搜索页
+          this.setData({
+            isNewest: true
+          })
           this.setData({
             'history':wx.getStorageSync('history') || []
           });      
-        }    
+        }
+        /*
+        this.getInfo([app.globalData.domain, 'webapi', this.data.kind, ''].join('/'), {});
+        this.getAds();
+        this.isNewest = true;//是最新列表而非搜索页
+        this.setData({
+          'history':wx.getStorageSync('history') || []
+        });
+        */        
+    },
+    getAds: function() {
+      var _this = this;
+      app.getAjaxData({
+          url: [app.globalData.domain, 'weixinapi/weixinad/chenxiaoyao520chenyingjun', ''].join('/'),
+          data: {},
+          success: function(res) {
+            // success
+            var list = res.data.info;
+            // wx.hideToast();            
+            _this.setData({
+              ads: list
+            });
+          }
+        });
     },
     getInfo: function(urltext, pastData = {}, cache = false) {
         var _this = this;
@@ -108,6 +131,10 @@ Page({
         'keyword':e.detail.value          
       });
       if (e.detail.value === '') {
+        // this.getInfo([app.globalData.domain, 'webapi', this.data.kind, ''].join('/'), {});
+        this.setData({
+          isNewest: true
+        })
         dataToSet.list = this.cache;
         dataToSet.hasData = this.cache.length?true:false;
         this.setData(dataToSet);
@@ -134,7 +161,7 @@ Page({
         var history = this.data.history;
         this.hideInput();
         if (this.data.keyword.trim() === '') {
-          if ( this.isNewest) {//是最新列表而非搜索页
+          if ( this.data.isNewest) {//是最新列表而非搜索页
             wx.showToast({
               'title': '关键词为空',
               'icon': 'loading',
@@ -148,7 +175,10 @@ Page({
         }
         else{
           //go
-          this.isNewest = false;//进行搜索，设置非最新列表
+          this.setData({
+            isNewest: false
+          });
+          //进行搜索，设置非最新列表
           this.getInfo(
             [app.globalData.domain, 'webapi/jobsearch', ''].join('/'),
             {
