@@ -58,11 +58,13 @@ Page({
     getAds: function() {
       var _this = this;
       app.getAjaxData({
-          url: [app.globalData.domain, 'weixinapi/weixinad/chenxiaoyao520chenyingjun', ''].join('/'),
+          url: [app.globalData.domain, 'webapi/weixinad', ''].join('/'),
           data: {},
           success: function(res) {
             // success
-            var list = res.data.info;
+            var list = res.data.info.map(function(v){
+              return Object.assign(v, {'res_jumpurl': encodeURIComponent(v.res_jumpurl)});
+            });
             // wx.hideToast();            
             _this.setData({
               ads: list

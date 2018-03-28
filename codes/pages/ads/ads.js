@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    url: 'https://www.ioffershow.com'
+    url: ''
   },
 
   /**
@@ -14,7 +14,7 @@ Page({
   onLoad: function (options) {
     console.log(options.url)
     this.setData({
-      url: options.url
+      url: decodeURIComponent(options.url)
     })
   },
 
