@@ -64,6 +64,19 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
-  }
+      return {
+        title: 'OfferShow-最可信的校招薪水交流平台',
+        path: 'pages/offer/offer',
+        success: function(res) {
+          wx.showToast({
+            'title':'分享成功',
+            'icon':'success',
+            'duration': 1000
+          });
+        },
+        fail: function(res) {
+          // 分享失败
+        }
+      };
+    }
 })
