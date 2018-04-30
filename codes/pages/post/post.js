@@ -115,7 +115,10 @@ Page({
     })
   },
   tapAbove:function(){
-    wx.navigateBack();
+    wx.switchTab({
+      url: '/pages/offer/offer'
+    });
+    //wx.navigateBack();
   },
   tapCancel:function(){
   },
