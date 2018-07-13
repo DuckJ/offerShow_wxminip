@@ -93,12 +93,26 @@
                 </view>
             </view>
         </view>    
-
 <view class="weui-form-preview">
         <view class="weui-form-preview__ft">
             <view class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active" bindtap="tapRank" data-rank="jobdislike">不真实</view>        
             <view class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" bindtap="tapRank"  data-rank="joblike">可信</view>
         </view>
+</view>
+
+<view class="rank__list">
+    <view class="rank__item {{index === message.length - 1 ? 'rank__item--last' : ''}}"
+          wx:for="{{message}}"
+          wx:for-item="message"
+          wx:for-index="index"
+          wx:key="id"
+          wx:if="{{index >= 0}}"
+          data-index="{{index}}"
+    >
+      <view class="rank__info">
+        <view class="rank__detail {{rank.open ? '' : 'rank__detail--close'}}">留言{{index+1}}： {{message.content}}</view>
+      </view>
+    </view>
 </view>
 
 <view class="my-foot"></view>
@@ -107,5 +121,10 @@
 <view class="my-bottom">
     <!-- <view class="btn bad" bindtap="removeFromFav" wx:if="{{hasFav}}">取消收藏</view> -->
     <!-- <view  class="btn good" bindtap="saveToFav" wx:if="{{!hasFav}}" >加入收藏</view> -->
-    <button  class="btn good" open-type="share" bindtap="saveToFav">点我分享</button>
+    <button  class="btn good" open-type="share" bindtap="saveToFav" style="right: 4px;">点我分享</button> 
+    <button  class="btn good"  bindtap="modalinput">点我评论</button>
 </view>
+
+<modal  hidden="{{hiddenmodalput}}" title="匿名评论" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" >  
+    <input style="height: 3.3em" type='text' name='messageContent' bindinput ="messageInput" placeholder="请在此输入留言..."/>
+</modal>  

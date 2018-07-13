@@ -115,10 +115,7 @@ Page({
     })
   },
   tapAbove:function(){
-    wx.switchTab({
-      url: '/pages/offer/offer'
-    });
-    //wx.navigateBack();
+    wx.navigateBack();
   },
   tapCancel:function(){
   },

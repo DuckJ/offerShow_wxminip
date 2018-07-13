@@ -1,16 +1,16 @@
 <view class=" my-top-fixed">
         <view class="weui-search-bar">
-            <view class="weui-btn weui-btn_plain-default my-btn-more my-btn-icon" bindtap="tapAbout">
+            <!-- <view class="weui-btn weui-btn_plain-default my-btn-more my-btn-icon" bindtap="tapAbout">
                 <image src="../../static/icon_nav_form.png"></image>
-            </view>
+            </view> -->
             <view class="weui-search-bar__form">
                 <view class="weui-search-bar__box">
                     <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-                    <input type="text" class="weui-search-bar__input" placeholder="搜索" focus="{{inputShowed}}" bindinput="inputTyping" bindconfirm="tapSearch" value="{{keyword}}" />
+                    <input type="text" class="weui-search-bar__input" placeholder="搜索后手机点击确认即可" focus="{{inputShowed}}" bindinput="inputTyping" bindconfirm="tapSearch" value="{{keyword}}" />
                 </view>
                 <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
                     <icon class="weui-icon-search" type="search" size="14"></icon>
-                    <view class="weui-search-bar__text">搜索</view>
+                    <view class="weui-search-bar__text">公司以及岗位关键字搜索</view>
                 </label>
             </view>
             <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>

@@ -3,8 +3,11 @@ var app = getApp();
 Page({
   data: {
     detail: {},
+    message:[],
     id: '',
     hasFav: false,
+    hiddenmodalput: true,  
+    messageContent:'',
   },
   onShareAppMessage: function () {
     return {
@@ -28,6 +31,7 @@ Page({
     var temp,
     _this = this,
     favState = false;
+    // console.log(options);
     if(app.getFav(options.id)){
       favState = true;
     }
@@ -35,6 +39,7 @@ Page({
       favState = false;
     }
     if (options.getdata === "request") {
+      var tempid = options.id;
       app.getAjaxData({
         url:[app.globalData.domain, 'webapi/jobdetail/'].join('/'),
         data:{
@@ -56,13 +61,52 @@ Page({
           wx.hideToast();
         }
       });
+      app.getAjaxData({
+        url: [app.globalData.domain, 'webapi/jobmessagelist/'].join('/'),
+        data: {
+          'id': tempid
+        },
+        success: function (res) {
+          // console.log(this.data.id);
+          // success
+          _this.setData({
+            message: res.data.info,
+            'id': options.id,
+            hasFav: favState
+          });
+        },
+        fail: function (res) {
+          // fail
+        },
+        complete: function (res) {
+          // complete
+          wx.hideToast();
+        }
+      });
     }
     else{
       temp = app.getCache(options.id);
-      this.setData({
-        detail: temp,
-        id: options.id,
-        hasFav: favState
+      app.getAjaxData({
+        url: [app.globalData.domain, 'webapi/jobmessagelist/'].join('/'),
+        data: {
+          'id': options.id
+        },
+        success: function (res) {
+          // success
+          _this.setData({
+            detail: temp,
+            message: res.data.info,
+            'id': options.id,
+            hasFav: favState
+          });
+        },
+        fail: function (res) {
+          // fail
+        },
+        complete: function (res) {
+          // complete
+          wx.hideToast();
+        }
       });
     }
   },
@@ -146,6 +190,63 @@ Page({
       "duration":1500
     });
   },
+  messageInput: function (e) {
+    var that = this;
+    that.setData({
+      messageContent: e.detail.value
+    })
+  },
+  modalinput: function () {
+    this.setData({
+      hiddenmodalput: !this.data.hiddenmodalput
+    })
+  },
+  //取消按钮  
+  cancel: function () {
+    this.setData({
+      hiddenmodalput: true
+    });
+  },
+  //确认  
+  confirm: function () {
+    this.setData({
+      hiddenmodalput: true
+    });
+    var param = {
+      'id': this.data.id,
+      'content': this.data.messageContent.trim()
+    };
+    if (!this.data.messageContent.trim()) {
+      wx.showToast({
+        'title': '别忘了打字哦！',
+        'icon': 'loading',
+        'duration': 1000
+      });
+      return;
+    }
+    app.getAjaxData({
+      url: [app.globalData.domain, 'webapi/jobmessage', ''].join('/'),
+      data: param,
+      success: function (res) {
+        wx.showToast({
+          'title': '留言成功',
+          'icon': 'success',
+          'duration': 2000
+        });
+      },
+      fail: function (res) {
+        wx.showToast({
+          'title': '留言失败，系统陷入未知领域啦！',
+          'icon': 'success',
+          'duration': 2000
+        });
+      },
+      complete: function (res) {
+        // complete
+      }
+    })
+    console.log("留言内容" + this.data.messageContent.trim());
+  },  
   removeFromFav: function(){
     app.delFav(this.data.id.toString());
     this.detectFav();
